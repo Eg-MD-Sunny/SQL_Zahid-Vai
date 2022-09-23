@@ -27,7 +27,12 @@ group by tr.ProductVariantId,
          w.MetropolitanAreaId
 
 -- MP
-select w.MetropolitanAreaId,pv.id, pv.Name, count(distinct t.id) MP_Quantity, sum(t.costprice) MP_Cost
+select w.MetropolitanAreaId [MID],
+pv.id                       [PVID],
+pv.Name                     [Product],
+count(distinct t.id)        [MP_Quantity], 
+sum(t.costprice)            [MP_Cost]
+
 from thingtransaction tss
 join ThingEvent te on tss.id = te.ThingTransactionid
 join Warehouse w on te.warehouseId = w.id
@@ -41,7 +46,10 @@ and te.ThingId <= 128269853
 and te.ThingId >= 127500668
 and tss.Id <= 199348155
 and tss.Id >= 198689924
-group by pv.id,pv.name,w.MetropolitanAreaId
+
+group by pv.id,
+         pv.name,
+         w.MetropolitanAreaId
 
 -- Missing
 select w.MetropolitanAreaId,pv.id, pv.Name, count(distinct t.id) Missing_Quantity, sum(t.costprice) Missing_Cost
