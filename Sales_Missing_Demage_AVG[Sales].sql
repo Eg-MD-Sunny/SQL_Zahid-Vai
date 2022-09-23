@@ -1,9 +1,9 @@
 -- Sales
-select  w.MetropolitanAreaId,
-tr.ProductVariantId,
-pv.Name Product,
-count(tr.SalePrice) [Sale Quantity],
-sum(tr.SalePrice) [Sale Amount]
+select  w.MetropolitanAreaId   [MID],
+        tr.ProductVariantId    [PVID],
+        pv.Name                [Product],
+        count(tr.SalePrice)    [Sale Quantity],
+        sum(tr.SalePrice)      [Sale Amount]
 
 from ThingRequest tr
 join Shipment s on s.id=tr.ShipmentId
@@ -22,7 +22,9 @@ select ProductVariantId from ProductVariantCategoryMapping
 where CategoryId in (25,1235,1262,61)
 or ProductVariantId in (6568)
 )
-group by tr.ProductVariantId,pv.Name,w.MetropolitanAreaId
+group by tr.ProductVariantId,
+         pv.Name,
+         w.MetropolitanAreaId
 
 -- MP
 select w.MetropolitanAreaId,pv.id, pv.Name, count(distinct t.id) MP_Quantity, sum(t.costprice) MP_Cost
